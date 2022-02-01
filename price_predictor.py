@@ -36,9 +36,19 @@ try:
     
     ticker = yf.download(stock, period=period)
     stock = pd.DataFrame(ticker)
+    stock.reset_index(inplace = True)
     
     st.write(stock)
     
+    st.write("The chart for close")
+    st.line_chart(stock.Close)
+    
+    
+    st.write("The predictor based on the data")
+    reg = LinearRegression()
+    reg.fit(stock["Date"], stock.Close)
+    st.write(LinearRegression())
+    st.write(reg.coef_)
     
 except ValueError:
     print("The indicator is the 4 letter code of company")
